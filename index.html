@@ -18,10 +18,10 @@
     renderer.setSize(window.innerWidth, window.innerHeight);
     document.getElementById('threejs-container').appendChild(renderer.domElement);
 
-    // Laden van het 3D-model (.glb-bestand)
-    const loader = new THREE.GLTFLoader();
-    loader.load('C:\\Users\\busin\\OneDrive\\Documenten\\GitHub\\luukdvr.github.io\\planeet.glb', (gltf) => {
-      scene.add(gltf.scene);
+    // Laden van het 3D-model (.obj-bestand)
+    const loader = new THREE.OBJLoader();
+    loader.load('C:\\Users\\busin\\OneDrive\\Documenten\\GitHub\\luukdvr.github.io\\planeettwee.obj', (obj) => {
+      scene.add(obj);
     });
 
     // Instellen van de camera positie

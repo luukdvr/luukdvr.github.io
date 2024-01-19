@@ -1,6 +1,6 @@
 # Blender 4.0.2
 # www.blender.org
-mtllib untitled.mtl
+mtllib planeettwee.mtl
 o Sphere
 v 0.000000 13.188777 -1.345209
 v 0.000000 13.000281 -2.581766
