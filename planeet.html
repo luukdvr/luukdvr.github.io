@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Three.js Model Demo</title>
+  <script src="https://threejs.org/build/three.js"></script>
+</head>
+<body>
+
+  <div id="threejs-container"></div>
+
+  <script>
+    // Initialiseren van de scène, camera en renderer
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+    const renderer = new THREE.WebGLRenderer();
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    document.getElementById('threejs-container').appendChild(renderer.domElement);
+
+    // Laden van het 3D-model (.glb-bestand)
+    const loader = new THREE.GLTFLoader();
+    loader.load('C:\\Users\\busin\\OneDrive\\Documenten\\GitHub\\luukdvr.github.io\\planeet.glb', (gltf) => {
+      scene.add(gltf.scene);
+    });
+
+    // Instellen van de camera positie
+    camera.position.z = 5;
+
+    // Animatie/render loop
+    const animate = () => {
+      requestAnimationFrame(animate);
+      renderer.render(scene, camera);
+    };
+
+    // Start de animatie
+    animate();
+  </script>
+
+</body>
+</html>
