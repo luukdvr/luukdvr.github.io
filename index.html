@@ -1,41 +1,40 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Three.js Model Demo</title>
-  <script src="https://threejs.org/build/three.js"></script>
-</head>
-<body>
+<canvas id="canvas"></canvas>
+<!-- vertex shader -->
+<script  id="vertex-shader-3d" type="x-shader/x-vertex">
+attribute vec4 a_position;
+attribute vec4 a_color;
 
-  <div id="threejs-container"></div>
+uniform mat4 u_matrix;
 
-  <script>
-    // Initialiseren van de scène, camera en renderer
-    const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-    const renderer = new THREE.WebGLRenderer();
-    renderer.setSize(window.innerWidth, window.innerHeight);
-    document.getElementById('threejs-container').appendChild(renderer.domElement);
+varying vec4 v_color;
 
-    // Laden van het 3D-model (.obj-bestand)
-    const loader = new THREE.OBJLoader();
-    loader.load('C:\\Users\\busin\\OneDrive\\Documenten\\GitHub\\luukdvr.github.io\\planeettwee.obj', (obj) => {
-      scene.add(obj);
-    });
+void main() {
+  // Multiply the position by the matrix.
+  gl_Position = u_matrix * a_position;
 
-    // Instellen van de camera positie
-    camera.position.z = 5;
+  // Pass the color to the fragment shader.
+  v_color = a_color;
+}
+</script>
+<!-- fragment shader -->
+<script  id="fragment-shader-3d" type="x-shader/x-fragment">
+precision mediump float;
 
-    // Animatie/render loop
-    const animate = () => {
-      requestAnimationFrame(animate);
-      renderer.render(scene, camera);
-    };
+// Passed in from the vertex shader.
+varying vec4 v_color;
 
-    // Start de animatie
-    animate();
-  </script>
+uniform vec4 u_colorMult;
 
-</body>
-</html>
+void main() {
+   gl_FragColor = v_color * u_colorMult;
+}
+</script><!--
+for most samples webgl-utils only provides shader compiling/linking and
+canvas resizing because why clutter the examples with code that's the same in every sample.
+See https://webglfundamentals.org/webgl/lessons/webgl-boilerplate.html
+and https://webglfundamentals.org/webgl/lessons/webgl-resizing-the-canvas.html
+for webgl-utils, m3, m4, and webgl-lessons-ui.
+-->
+<script src="https://webglfundamentals.org/webgl/resources/webgl-utils.js"></script>
+<script src="https://webglfundamentals.org/webgl/resources/m4.js"></script>
+<script src="https://webglfundamentals.org/webgl/resources/primitives.js"></script>
